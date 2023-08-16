@@ -1,5 +1,7 @@
 package com.KoreaIT.java.AM.dto;
 
+import java.util.List;
+
 public class Article {
   public int id;
   public String regDate;
