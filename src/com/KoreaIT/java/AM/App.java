@@ -1,5 +1,7 @@
 package com.KoreaIT.java.AM;
 
+import com.KoreaIT.java.AM.controller.ArticleController;
+import com.KoreaIT.java.AM.controller.MemberController;
 import com.KoreaIT.java.AM.dto.Article;
 import com.KoreaIT.java.AM.dto.Member;
 import com.KoreaIT.java.AM.util.Util;
@@ -22,7 +24,8 @@ public class App {
     System.out.println("== 프로그램 시작 ==");
     makeTestData();
     Scanner sc = new Scanner(System.in);
-
+    MemberController memberController = new MemberController(members, sc);
+    ArticleController articleController = new ArticleController();
 
     while (true) {
       System.out.printf("명령어 )");
@@ -36,40 +39,9 @@ public class App {
       }
 
       if (cmd.equals("member join")) {
-        int id = members.size() + 1;
-
-        String regDate = Util.getNowDateStr();
-        String loginID = null;
-
-        while (true) {
-          System.out.printf("로그인 아이디 : ");
-          loginID = sc.nextLine();
-          if (isJoinableLoginId(loginID) == false) {
-            System.out.printf("%s(은)는 이미 사용중인 아이디입니다.\n", loginID);
-            continue;
-          }
-          break;
-        }
-
-        String loginPW = null;
-        String loginPwCheck = null;
-        while (true) {
-          System.out.printf("로그인 비밀번호 : ");
-          loginPW = sc.nextLine();
-          System.out.printf("로그인 비밀번호 확인 : ");
-          loginPwCheck = sc.nextLine();
-          if (loginPwCheck.equals(loginPW) == false) {
-            System.out.println("비밀번호를 다시 입력하세요.");
-            continue;
-          }
-          break;
-        }
-        System.out.printf("이름 : ");
-        String name = sc.nextLine();
-        Member member = new Member(id, regDate, loginID, loginPW, name);
-        members.add(member);
+        memberController.dojoin();
+        continue;
       }
-
 
       if (cmd.equals("article write")) {
         String regDate = Util.getNowDateStr();
@@ -165,24 +137,7 @@ public class App {
     System.out.println("== 프로그램 종료 ==");
   }
 
-  private boolean isJoinableLoginId(String loginID) {
-    int index = getMemberIndexByloginId(loginID);
-    if (index == -1){
-      return true;
-    }
-    return false;
-  }
 
-  private int getMemberIndexByloginId(String loginID) {
-    int i = 0;
-    for (Member member : members){
-      if(member.loginId.equals(loginID)){
-        return i;
-      }
-      i++;
-    }
-    return -1;
-  }
 
   private void makeTestData() {
     System.out.println("테스트데이터를 생성합니다.");
