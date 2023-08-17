@@ -2,6 +2,7 @@ package com.KoreaIT.java.AM.dto;
 
 import java.util.List;
 
+
 public class Article extends Dto{
   public String title;
   public String body;
