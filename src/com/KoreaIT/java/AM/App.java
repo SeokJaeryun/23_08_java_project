@@ -1,24 +1,28 @@
 package com.KoreaIT.java.AM;
 
 import com.KoreaIT.java.AM.dto.Article;
+import com.KoreaIT.java.AM.dto.Member;
 import com.KoreaIT.java.AM.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class App {
   private List<Article> articles;
+  private List<Member> members;
 
   App() {
     articles = new ArrayList<>();
+    members = new ArrayList<>();
   }
+
 
   public void start() {
     System.out.println("== 프로그램 시작 ==");
     makeTestData();
     Scanner sc = new Scanner(System.in);
+
 
     while (true) {
       System.out.printf("명령어 )");
@@ -30,6 +34,36 @@ public class App {
       if (cmd.equals("system exit")) {
         break;
       }
+
+      if (cmd.equals("member join")) {
+        int id = members.size() + 1;
+
+
+        String regDate = Util.getNowDateStr();
+        System.out.printf("로그인 아이디 : ");
+        String loginID = sc.nextLine();
+
+
+        String loginPW = null;
+        String loginPwCheck = null;
+        while (true) {
+          System.out.printf("로그인 비밀번호 : ");
+          loginPW = sc.nextLine();
+          System.out.printf("로그인 비밀번호 확인 : ");
+          loginPwCheck = sc.nextLine();
+          if (loginPwCheck.equals(loginPW) == false) {
+            System.out.println("비밀번호를 다시 입력하세요.");
+            continue;
+          }
+          break;
+        }
+        System.out.printf("이름 : ");
+        String name = sc.nextLine();
+        Member member = new Member(id, regDate, loginID, loginPW, name);
+        members.add(member);
+      }
+
+
       if (cmd.equals("article write")) {
         String regDate = Util.getNowDateStr();
         int id = articles.size() + 1;
