@@ -30,6 +30,9 @@ public class MemberController extends Controller {
       case "nowLogin":
         CheckLogin();
         break;
+      case "logout":
+        doLogout();
+        break;
       default:
         System.out.println("존재하지 않는 명령어입니다.");
         break;
@@ -42,6 +45,10 @@ public class MemberController extends Controller {
   }
 
   private void doLogin() {
+    if (islogined()) {
+      System.out.println("로그아웃 후 이용하세요");
+      return;
+    }
     System.out.printf("로그인 아이디 : ");
     String loginId = sc.nextLine();
     System.out.printf("로그인 비밀번호 : ");
@@ -59,6 +66,14 @@ public class MemberController extends Controller {
     }
     loginedMember = member;
     System.out.printf("%s님이 로그인했습니다.\n", loginedMember.name);
+  }
+
+  private void doLogout() {
+    if (islogined() == false){
+      System.out.println("로그아웃 상태입니다.");
+      return;
+    }
+    System.out.println("로그아웃 되었습니다.");
   }
 
   private void CheckLogin() {
@@ -134,6 +149,11 @@ public class MemberController extends Controller {
     }
     return -1;
   }
+
+  private boolean islogined() {
+    return loginedMember != null;
+  }
+
   public void makeTestData() {
     System.out.println("회원 테스트데이터를 생성합니다.");
     members.add(new Member(1, Util.getNowDateStr(), "admin", "admin", "admin"));
