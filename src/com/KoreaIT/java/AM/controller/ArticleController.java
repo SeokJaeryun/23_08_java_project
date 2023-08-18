@@ -39,8 +39,9 @@ public class ArticleController extends Controller {
       case "delete":
         doDelete();
         break;
-
-
+      default:
+        System.out.println("존재하지 않는 명령어입니다.");
+        break;
     }
   }
 
@@ -152,6 +153,7 @@ public class ArticleController extends Controller {
     }
     return null;
   }
+
   public void makeTestData() {
     System.out.println("테스트데이터를 생성합니다.");
     articles.add(new Article(1, Util.getNowDateStr(), "title1", "body1", 11));

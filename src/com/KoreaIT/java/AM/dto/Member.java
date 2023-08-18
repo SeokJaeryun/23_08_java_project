@@ -4,6 +4,7 @@ public class Member extends Dto {
   public String loginId;
   public String loginPw;
   public String name;
+  public boolean Islogin;
 
   public Member(int id, String regDate, String loginId, String loginPw, String name) {
     this.id = id;
@@ -11,5 +12,6 @@ public class Member extends Dto {
     this.loginId = loginId;
     this.loginPw = loginPw;
     this.name = name;
+    this.Islogin = false;
   }
 }
